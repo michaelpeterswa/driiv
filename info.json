@@ -1,0 +1,13 @@
+{
+    "project": [
+        {
+            "author": "Michael Peters",
+            "projectName": "driiv",
+            "version": "1.0.0",
+            "description": "driiv is a program to weigh the benefits of uploading files over the internet versus taking a hard drive in a vehicle",
+            "longDescription": "this program sets out to determine which is faster, uploading files using ",
+            "githubLink": "https://github.com/michaelpeterswa/driiv",
+            "date": "06.16.2020"
+        }
+    ]
+}
