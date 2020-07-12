@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link
+      rel="icon"
+      href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico"
+    />
+
+    <title>ShortLink</title>
+
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/4.0/examples/sticky-footer/"
+    />
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="css/sticky-footer.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <!-- Begin page content -->
+    <main role="main" class="container">
+      <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.6/lib/darkmode-js.min.js"></script>
+      <script>
+        var options = {
+          label: "🌓",
+        };
+        new Darkmode(options).showWidget();
+      </script>
+
+      <h1 class="mt-5">Login</h1>
+      <p class="lead">Please enter username and password.</p>
+      <br />
+
+      <div class="row" id="error"></div>
+
+      <script>
+        var x = <%= passworderror %>
+        console.log();
+        if (x) {
+            document.getElementById("error").innerHTML =
+                '<div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> Incorrect username or password.</div>';
+        }
+      </script>
+
+      <form method="POST" action="/users/log">
+        <div class="row form-group">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-control"
+              placeholder="Username"
+              aria-label="Link for shortening"
+              aria-describedby="basic-addon2"
+            />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Password"
+              aria-label="Link for shortening"
+              aria-describedby="basic-addon2"
+            />
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="submit">
+                Submit
+              </button>
+            </div>
+          </div>
+          <small id="loginHelp" class="form-text text-muted"
+            >Please enter user info.</small
+          >
+        </div>
+      </form>
+    </main>
+  </body>
+</html>

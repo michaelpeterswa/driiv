@@ -1,0 +1,27 @@
+{
+  "name": "driiv",
+  "version": "1.0.0",
+  "description": "sneakernet calculator",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelpeterswa/clsl.git"
+  },
+  "author": "Michael Peters",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/michaelpeterswa/clsl/issues"
+  },
+  "homepage": "https://github.com/michaelpeterswa/clsl#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4",
+    "path": "^0.12.7"
+  }
+}
