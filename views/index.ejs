@@ -1,176 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link
+      rel="icon"
+      href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico"
+    />
 
-<head>
-    <meta charset="UTF-8">
-    <title>Drawing isochrones</title>
-</head>
+    <title>ShortLink</title>
 
-<body>
-    <!DOCTYPE html>
-    <html>
-    <meta name="description" content="Class 10 Show+Tell: GeoJson">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+    <link
+      rel="canonical"
+      href="https://getbootstrap.com/docs/4.0/examples/sticky-footer/"
+    />
 
-    <head>
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v1.3.0/leaflet.css" />
-        <link rel="stylesheet" href="css.css" />
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet" />
 
-        <style>
-            html,
-            body,
-            #mapid {
-                height: 100%;
-                width: 100%;
-                padding: 0;
-                margin: 0;
-            }
+    <!-- Custom styles for this template -->
+    <link href="css/sticky-footer.css" rel="stylesheet" />
+  </head>
 
-            #error {
-                position: absolute;
-                width: 80%;
-                margin: 0px;
-                z-index: 2000;
-                width: 80%;
-                border-radius: 20px;
-                max-width: 500px;
-                top: 30%;
-                /* position the top  edge of the element at the middle of the parent */
-                left: 50%;
-                /* position the left edge of the element at the middle of the parent */
-                transform: translate(-50%, -50%);
-                background-color: white;
-                padding: 10px;
-                display: none;
-                text-align: center;
-            }
-        </style>
-        <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
-            integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
-            crossorigin=""></script>
-    </head>
-
-    <body>
-        <div id="mapid"></div>
-    </body>
-
-    </html>
-    <div id="error" class="tippy-tooltip honeybee-theme">
-        <p><b>No API and APPLICATION_ID key inserted </b></p>
-        <p><a href="http://docs.traveltimeplatform.com/overview/getting-keys/">Sign up for an API key</a>
-        <p>Place it in API and APPLICATION_ID variables</p>
-    </div>
-    <script>
-        // The name of the starting location. We will have to geocode this to coordinates.
-        var startingLocation = "The White House, DC";
-        // The departure time in an ISO format.
-        var departureTime = new Date().toJSON();
-        // Travel time in seconds. We want 1 hour travel time so it is 60 minutes x 60 seconds.
-        var travelTime = 60 * 60;
-        // These secret variables are needed to authenticate the request. Get them from http://docs.traveltimeplatform.com/overview/getting-keys/ and replace 
-        var APPLICATION_ID = "1a8d0caf";
-        var API_KEY = "3a9611cf31d89a6bc044bc57afe77ba2";
-
-        var mymap = L.map('mapid').setView([38.8, -77.0365], 9);
-
-        sendGeocodingRequest(startingLocation);
-
-        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-            maxZoom: 18,
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            id: 'mapbox.streets'
-        }).addTo(mymap);
-
-        // Sends the geocoding request.
-        function sendGeocodingRequest(location) {
-            // The request for the geocoder. Reference: http://docs.traveltimeplatform.com/reference/geocoding-search/
-            var request = {
-                query: location
-            };
-            document.getElementById("error").style.display = "none";
-            var xhr = new XMLHttpRequest();
-            xhr.responseType = "json";
-            xhr.open("GET", "https://api.traveltimeapp.com/v4/geocoding/search?query=" + location)
-            xhr.setRequestHeader("X-Application-Id", APPLICATION_ID);
-            xhr.setRequestHeader("X-Api-Key", API_KEY);
-            xhr.setRequestHeader("Accept-Language", " en-US");
-            xhr.onreadystatechange = function () {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    if (xhr.readyState === 4) {
-                        sendTimeMapRequest(xhr.response)
-                    }
-                } else {
-                    if (APPLICATION_ID === "place your app id here" || API_KEY === "place your api key here") {
-                        document.getElementById("error").style.display = "block";
-                    }
-                }
-            };
-            xhr.send();
+  <body>
+    <!-- Begin page content -->
+    <main role="main" class="container">
+      <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.6/lib/darkmode-js.min.js"></script>
+      <script>
+        var options = {
+          label: "🌓",
         };
+        new Darkmode(options).showWidget();
+      </script>
 
+      <h1 class="mt-5">Login</h1>
+      <p class="lead">Please enter username and password.</p>
+      <br />
 
-        // Sends the request of the Time Map multipolygon.
-        function sendTimeMapRequest(geocodingResponse) {
+      <div class="row" id="error"></div>
 
-
-            // The request for Time Map. Reference: http://docs.traveltimeplatform.com/reference/time-map/
-            var coords = geocodingResponse.features[0].geometry.coordinates;
-            var latLng = { lat: coords[1], lng: coords[0] };
-
-            var request = {
-                departure_searches: [{
-                    id: "first_location",
-                    coords: latLng,
-                    transportation: {
-                        type: "car"
-                    },
-
-                    departure_time: departureTime,
-                    travel_time: travelTime
-                }],
-
-                arrival_searches: []
-            };
-
-            var xhr = new XMLHttpRequest()
-            xhr.addEventListener("readystatechange", function () {
-                if (this.readyState === 4) {
-                    drawTimeMap(mymap, this.response);
-                }
-            });
-            xhr.open("POST", "https://api.traveltimeapp.com/v4/time-map")
-            xhr.setRequestHeader("X-Application-Id", APPLICATION_ID);
-            xhr.setRequestHeader("X-Api-Key", API_KEY);
-            xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-            xhr.responseType = "json";
-            xhr.send(JSON.stringify(request));
-
-
-            // A helper function that converts [{lat: <lat>, lng: <lng>}, ...] to a [[<lat>, <lng>], ...] format.
-            function ringCoordsHashToArray(ring) {
-                return ring.map(function (latLng) { return [latLng.lat, latLng.lng]; });
-            };
-
-
-            // Draws the resulting multipolygon from the response on the map.
-            function drawTimeMap(map, response) {
-
-                // Reference for the response: http://docs.traveltimeplatform.com/reference/time-map/#response-body-json-attributes
-                var shapesCoords = response.results[0].shapes.map(function (polygon) {
-                    var shell = ringCoordsHashToArray(polygon.shell);
-                    var holes = polygon.holes.map(ringCoordsHashToArray);
-                    return [shell].concat(holes);
-                });
-                var polygon = L.polygon(shapesCoords, { color: 'red' });
-                polygon.addTo(map);
-                map.fitBounds(polygon.getBounds());
-
-            };
+      <script>
+        var x = <%= passworderror %>
+        console.log();
+        if (x) {
+            document.getElementById("error").innerHTML =
+                '<div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> Incorrect username or password.</div>';
         }
-    </script>
-</body>
+      </script>
 
+      <form method="POST" action="/users/log">
+        <div class="row form-group">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-control"
+              placeholder="Username"
+              aria-label="Link for shortening"
+              aria-describedby="basic-addon2"
+            />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="Password"
+              aria-label="Link for shortening"
+              aria-describedby="basic-addon2"
+            />
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="submit">
+                Submit
+              </button>
+            </div>
+          </div>
+          <small id="loginHelp" class="form-text text-muted"
+            >Please enter user info.</small
+          >
+        </div>
+      </form>
+    </main>
+  </body>
 </html>
