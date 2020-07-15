@@ -14,7 +14,7 @@
       href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico"
     />
 
-    <title>ShortLink</title>
+    <title>Driiv</title>
 
     <link
       rel="canonical"
@@ -39,52 +39,85 @@
         new Darkmode(options).showWidget();
       </script>
 
-      <h1 class="mt-5">Login</h1>
-      <p class="lead">Please enter username and password.</p>
+      <h1 class="mt-5">Driiv</h1>
+      <p class="lead">
+        Please enter location, amount of data (in TB), time (minutes), internet
+        speed (Mbps), and transfer medium.
+      </p>
       <br />
-
       <div class="row" id="error"></div>
 
       <script>
-        var x = <%= passworderror %>
+        var x = <%= error %>
         console.log();
         if (x) {
             document.getElementById("error").innerHTML =
-                '<div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> Incorrect username or password.</div>';
+                '<div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> Something went wrong. Please Try Again</div>';
         }
       </script>
 
-      <form method="POST" action="/users/log">
-        <div class="row form-group">
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              id="username"
-              name="username"
-              class="form-control"
-              placeholder="Username"
-              aria-label="Link for shortening"
-              aria-describedby="basic-addon2"
-            />
-            <input
-              type="password"
-              id="password"
-              name="password"
-              class="form-control"
-              placeholder="Password"
-              aria-label="Link for shortening"
-              aria-describedby="basic-addon2"
-            />
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="submit">
-                Submit
-              </button>
-            </div>
-          </div>
-          <small id="loginHelp" class="form-text text-muted"
-            >Please enter user info.</small
-          >
-        </div>
+      <form method="POST" action="/api">
+        <input
+          type="text"
+          id="location"
+          name="location"
+          class="form-control"
+          placeholder="Address"
+          aria-label="Link for shortening"
+          aria-describedby="basic-addon2"
+        />
+        <br />
+        <input
+          type="text"
+          id="data_size"
+          name="data_size"
+          class="form-control"
+          placeholder="Terabytes"
+          aria-label="Link for shortening"
+          aria-describedby="basic-addon2"
+        />
+        <br />
+        <input
+          type="text"
+          id="time"
+          name="time"
+          class="form-control"
+          placeholder="Minutes"
+          aria-label="Link for shortening"
+          aria-describedby="basic-addon2"
+        />
+        <br />
+        <input
+          type="text"
+          id="int_speed"
+          name="int_speed"
+          class="form-control"
+          placeholder="Mbps"
+          aria-label="Link for shortening"
+          aria-describedby="basic-addon2"
+        />
+        <br />
+        <select class="form-control" name="device">
+          <option>SD Card (160 MB/s)</option>
+          <option>USB drive (180 MB/s)</option>
+          <option>5200 RPM HDD (80 MB/s)</option>
+          <option>7200 RPM HDD (100 MB/s)</option>
+          <option>SSD (530 MB/s)</option>
+          <option>NVME SSD (3000 MB/s)</option>
+          <option>LTO7 Magnetic Tape (300 MB/s)</option>
+        </select>
+        <br />
+        <label
+          ><input type="checkbox" name="check" value="checked" /> Include
+          offload time.</label
+        >
+        <br />
+        <button class="btn btn-outline-secondary" type="submit">
+          Submit
+        </button>
+        <small id="loginHelp" class="form-text text-muted"
+          >Please enter transfer info.</small
+        >
       </form>
     </main>
   </body>
